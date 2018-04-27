@@ -5,8 +5,17 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VueResoure from 'vue-resource'
+import './javascript/Ie9Oninput'
+import store from './vuex/store'
+import vRainbow from './directives/rainbow.js'
+import vRandomsize from './directives/randomsize.js'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/rainbow.css'
 
 Vue.use(ElementUI)
+Vue.use(vRainbow)
+Vue.use(vRandomsize)
 Vue.directive('img', function (el, binding) {
   // 简单压缩图片
   el.width = 200
@@ -36,13 +45,21 @@ Vue.directive('img', function (el, binding) {
     document.body.appendChild(img)
   })
 })
-
+Vue.directive('highlight', (el, binding) => {
+  Vue.nextTick(() => {
+    let blocks = Array.from(el.querySelectorAll('pre code'))
+    blocks.forEach((block) => {
+      hljs.highlightBlock(block)
+    })
+  })
+})
 Vue.config.productionTip = false
-
+Vue.use(VueResoure)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -1,9 +1,12 @@
 <template>
   <div>
+    <div v-show="sideBarShow" class="mask" @click="maskHandle"></div>
     <div id="sidebar" :class="{'sideBarShow': sideBarShow}">
       <ul>
         <li v-for="(item, index) in sideBarList" :key="index">
-          <a href="#" :url="item.url" @click="sidebarClick(item.title)">{{item.title}}</a>
+          <a href="#" @click="sidebarClick(item.url)">
+            {{item.title}}
+          </a>
         </li>
       </ul>
     </div>
@@ -26,13 +29,26 @@ export default {
     }
   },
   methods: {
-    sidebarClick (title) {
-      this.$emit('sidebarClick', title)
+    sidebarClick (url) {
+      this.$router.push({path: url})
+      this.$emit('sidebarClick', url)
+    },
+    maskHandle () {
+      this.$emit('maskHandle', false)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 1;
+}
 #sidebar {
   width: 250px;
   background: #333;

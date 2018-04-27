@@ -96,7 +96,6 @@ export default {
     },
     gameDown () {
       this.origin.x += 1
-      debugger
       this.setGameData()
     },
     setGameData () {

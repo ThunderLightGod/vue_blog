@@ -84,9 +84,9 @@ import BlogSidebar from './BlogSidebar.vue'
 export default {
   data () {
     return {
+      myInput: '',
       mask: false,
       sideBarShow: false,
-      myInput: '',
       backButtonShow: false,
       navList: [
         {
